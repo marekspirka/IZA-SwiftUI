@@ -22,23 +22,31 @@ struct AddExpenseView: View {
     
     @Query(animation: .snappy) private var allCategories: [Category]
     
+    var isAddButtonDisabled: Bool {
+        return title.isEmpty || subTitle.isEmpty || amount.isZero
+    }
+    
+    var isEditing: Bool {
+        return editExpense != nil
+    }
+    
+    private var saveButtonTitle: String {
+        return isEditing ? "Save" : "Add"
+    }
+    
+    private var cancelButtonTitle: String {
+        return isEditing ? "Close" : "Cancel"
+    }
+    
     init(expense: Expense? = nil) {
-        editExpense = expense
-
-        // If editing, pre-fill fields with expense data
-        if let expense = expense {
-            print("Received expense data for editing: \(expense)")
-            _title = State(initialValue: expense.title)
-            _subTitle = State(initialValue: expense.subTitle)
-            _date = State(initialValue: expense.date)
-            _amount = State(initialValue: expense.amount)
-            _category = State(initialValue: expense.category)
-        } else {
-            print("No expense data received. Adding new expense.")
-        }
+        _editExpense = State(initialValue: expense)
+        _title = State(initialValue: expense?.title ?? "")
+        _subTitle = State(initialValue: expense?.subTitle ?? "")
+        _date = State(initialValue: expense?.date ?? .init())
+        _amount = State(initialValue: expense?.amount ?? 0)
+        _category = State(initialValue: expense?.category)
     }
 
-    
     var body: some View {
         NavigationStack {
             List {
@@ -87,54 +95,39 @@ struct AddExpenseView: View {
                         .labelsHidden()
                 }
             }
-            .navigationTitle(editExpense == nil ? "Add Expense" : "Edit Expense")
+            .navigationTitle(isEditing ? "Edit Expense" : "Add Expense")
             .interactiveDismissDisabled()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") {
+                    Button(cancelButtonTitle) {
                         dismiss()
                     }
                     .tint(.red)
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(editExpense == nil ? "Add" : "Save") {
-                        editExpense == nil ? addExpense() : saveExpense()
+                    Button(saveButtonTitle) {
+                        saveExpense()
                     }
                     .disabled(isAddButtonDisabled)
                 }
             }
-            
         }
-        .onAppear {
-            // If editing, populate fields with expense data
-            if let expense = editExpense {
-                title = expense.title
-                subTitle = expense.subTitle
-                date = expense.date
-                amount = expense.amount
-                category = expense.category
-            }
-        }
-    }
-    
-    var isAddButtonDisabled: Bool {
-        return title.isEmpty || subTitle.isEmpty || amount.isZero
-    }
-    
-    func addExpense() {
-        let expense = Expense(title: title, subTitle: subTitle, amount: amount, date: date, category: category)
-        context.insert(expense)
-        dismiss()
     }
     
     func saveExpense() {
-        guard let editExpense = editExpense else { return }
-        editExpense.title = title
-        editExpense.subTitle = subTitle
-        editExpense.date = date
-        editExpense.amount = amount
-        editExpense.category = category
+        if isEditing {
+            guard let editExpense = editExpense else { return }
+            editExpense.title = title
+            editExpense.subTitle = subTitle
+            editExpense.date = date
+            editExpense.amount = amount
+            editExpense.category = category
+        } else {
+            let expense = Expense(title: title, subTitle: subTitle, amount: amount, date: date, category: category)
+            context.insert(expense)
+        }
+        
         dismiss()
     }
     

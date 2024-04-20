@@ -9,22 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var currentTab: String = "Expense"
+    @State private var currentTab: String = "Expenses"
     
     var body: some View{
         TabView(selection: $currentTab){
             
             ExpensesView(currentTable: $currentTab)
-                .tag("Expense")
+                .tag("Expenses")
                 .tabItem{
                     Image(systemName: "creditcard.fill")
                     Text("Expenses")
                 }
             CategoryView()
-                .tag("Category")
+                .tag("Categories")
                 .tabItem{
                     Image(systemName: "creditcard.fill")
-                    Text("Category")
+                    Text("Categories")
                 }
         }
     }

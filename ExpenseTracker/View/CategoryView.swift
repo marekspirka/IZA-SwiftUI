@@ -37,7 +37,9 @@ struct CategoryView: View {
                 .sheet(isPresented: $addCategory) {
                     addCategorySheet
                 }
-                
+                .alert(isPresented: $deleteCat, content: {
+                    deleteCategoryAlert
+                })
         }
     }
     
@@ -121,6 +123,13 @@ struct CategoryView: View {
             message: Text("If you delete a category, all associated expenses will be deleted too"),
             primaryButton: .destructive(Text("Delete")) {
                 if let requestedCategory = requestedCategory {
+                    // Delete all expenses associated with the requested category
+                    if let expenses = requestedCategory.expenses {
+                        for expense in expenses {
+                            context.delete(expense)
+                        }
+                    }
+                    // Delete the category itself
                     context.delete(requestedCategory)
                     self.requestedCategory = nil
                 }

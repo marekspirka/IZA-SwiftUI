@@ -89,19 +89,16 @@ struct ExpensesView: View {
     
     private var addExpenseButton: some View {
         Button {
-            // Set selectedExpense to nil to indicate adding a new expense
-            selectedExpense = nil
-            addExpense = true
+            addExpense.toggle()
         } label: {
             Image(systemName: "plus.circle.fill")
                 .font(.title3)
         }
     }
-
+    
     private func editExpense(for expense: Expense) {
-        // Set selectedExpense to the tapped expense for editing
         selectedExpense = expense
-        addExpense = true // Open the AddExpenseView for editing
+        addExpense = true
     }
 
     

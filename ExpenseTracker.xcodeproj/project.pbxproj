@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DD398012BD4416700E93680 /* EarningsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD398002BD4416700E93680 /* EarningsView.swift */; };
+		1DD398032BD441C400E93680 /* BankAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD398022BD441C400E93680 /* BankAccountView.swift */; };
 		1DE87E3D2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE87E3C2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift */; };
 		1DE87E3F2BD3A94900EBE6B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE87E3E2BD3A94900EBE6B9 /* ContentView.swift */; };
 		1DE87E412BD3A94B00EBE6B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DE87E402BD3A94B00EBE6B9 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DD398002BD4416700E93680 /* EarningsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsView.swift; sourceTree = "<group>"; };
+		1DD398022BD441C400E93680 /* BankAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountView.swift; sourceTree = "<group>"; };
 		1DE87E392BD3A94900EBE6B9 /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE87E3C2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackerApp.swift; sourceTree = "<group>"; };
 		1DE87E3E2BD3A94900EBE6B9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				1DE87E582BD3BA7B00EBE6B9 /* AccountView.swift */,
 				1DE87E5E2BD3C37300EBE6B9 /* AddExpenseView.swift */,
 				1DE87E602BD3CFE700EBE6B9 /* CardView.swift */,
+				1DD398002BD4416700E93680 /* EarningsView.swift */,
+				1DD398022BD441C400E93680 /* BankAccountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -186,11 +192,13 @@
 				1DE87E3F2BD3A94900EBE6B9 /* ContentView.swift in Sources */,
 				1DE87E592BD3BA7B00EBE6B9 /* AccountView.swift in Sources */,
 				1DE87E5D2BD3BC7C00EBE6B9 /* GroupedExpenses.swift in Sources */,
+				1DD398032BD441C400E93680 /* BankAccountView.swift in Sources */,
 				1DE87E532BD3B2C000EBE6B9 /* CategoryView.swift in Sources */,
 				1DE87E5F2BD3C37300EBE6B9 /* AddExpenseView.swift in Sources */,
 				1DE87E3D2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift in Sources */,
 				1DE87E612BD3CFE700EBE6B9 /* CardView.swift in Sources */,
 				1DE87E4F2BD3AE7B00EBE6B9 /* Category.swift in Sources */,
+				1DD398012BD4416700E93680 /* EarningsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

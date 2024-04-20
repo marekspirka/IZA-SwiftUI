@@ -14,17 +14,35 @@ struct ContentView: View {
     var body: some View{
         TabView(selection: $currentTab){
             
+            BankAccountView()
+                .tag("My account")
+                .tabItem{
+                    Image(systemName: "creditcard.circle")
+                    Text("My account")
+                }
             ExpensesView(currentTable: $currentTab)
                 .tag("Expenses")
                 .tabItem{
-                    Image(systemName: "creditcard.fill")
+                    Image(systemName: "arrow.down.right.circle.fill")
                     Text("Expenses")
+                }
+            EarningsView()
+                .tag("Earnings")
+                .tabItem{
+                    Image(systemName: "arrow.up.forward.circle.fill")
+                    Text("Earnings")
                 }
             CategoryView()
                 .tag("Categories")
                 .tabItem{
-                    Image(systemName: "creditcard.fill")
+                    Image(systemName: "text.justify")
                     Text("Categories")
+                }
+            SettingsView()
+                .tag("Settings")
+                .tabItem{
+                    Image(systemName: "gearshape.fill")
+                    Text("Settings")
                 }
         }
     }

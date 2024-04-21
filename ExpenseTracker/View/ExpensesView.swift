@@ -59,9 +59,13 @@ struct ExpensesView: View {
     private var contentView: some View {
         List {
             ForEach(groupedExpenses.indices, id: \.self) { index in
-                Section(header: Text(groupedExpenses[index].groupTitle)) {
-                    ForEach(groupedExpenses[index].expenses) { expense in
-                        expenseCard(expense)
+                let group = groupedExpenses[index]
+                let expensesOfTypeExpense = group.expenses.filter { $0.type == "expense" }
+                if !expensesOfTypeExpense.isEmpty {
+                    Section(header: Text(group.groupTitle)) {
+                        ForEach(expensesOfTypeExpense) { expense in
+                            expenseCard(expense)
+                        }
                     }
                 }
             }

@@ -16,9 +16,10 @@ struct AddExpenseView: View {
     
     @State private var title: String = ""
     @State private var subTitle: String = ""
-    @State private var date: Date = .init()
-    @State private var amount: CGFloat = 0
+    @State private var date: Date = Date()
+    @State private var amount: Double = 0  // Change to Double
     @State private var category: Category?
+    @State private var type: String = ""
     
     @Query(animation: .snappy) private var allCategories: [Category]
     
@@ -38,14 +39,13 @@ struct AddExpenseView: View {
         _editExpense = State(initialValue: expense)
         
         if let expense = expense {
-            print("Som editovací")
             _title = State(initialValue: expense.title)
             _subTitle = State(initialValue: expense.subTitle)
             _date = State(initialValue: expense.date)
             _amount = State(initialValue: expense.amount)
             _category = State(initialValue: expense.category)
+            _type = State(initialValue: expense.type)
         } else {
-            print("som novu vytvárací")
             _title = State(initialValue: "")
             _subTitle = State(initialValue: "")
             _date = State(initialValue: Date())
@@ -68,9 +68,17 @@ struct AddExpenseView: View {
                 Section("Price") {
                     HStack(spacing: 4) {
                         TextField("0.0", value: $amount, formatter: formatter)
-                            .keyboardType(.numberPad)
+                            .keyboardType(.decimalPad) // Use decimalPad for entering amount
                         Text("€").fontWeight(.semibold)
                     }
+                }
+                
+                Section("Type") {
+                    Picker("Type", selection: $type) {
+                        Text("Expense").tag("expense")
+                        Text("Income").tag("income")
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
                 
                 if !allCategories.isEmpty {
@@ -123,8 +131,9 @@ struct AddExpenseView: View {
             editExpense.date = date
             editExpense.amount = amount
             editExpense.category = category
+            editExpense.type = type // Update the type property
         } else {
-            let expense = Expense(title: title, subTitle: subTitle, amount: amount, date: date, category: category)
+            let expense = Expense(title: title, subTitle: subTitle, amount: amount, date: date, type: type, category: category) // Include type when creating a new Expense
             context.insert(expense)
         }
         
@@ -138,3 +147,4 @@ struct AddExpenseView: View {
         return formatter
     }
 }
+

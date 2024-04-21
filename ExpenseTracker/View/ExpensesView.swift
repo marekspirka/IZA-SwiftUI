@@ -21,6 +21,7 @@ struct ExpensesView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                totalEarningsAndExpensesView
                 contentView
             }
             .navigationTitle("Expenses")
@@ -74,7 +75,7 @@ struct ExpensesView: View {
                 Text("Total Expenses")
                     .font(.headline)
                 Text("\(totalExpenses) €")
-                Text("\(totalExpenses-totalEarnings) €")
+                Text("\(totalEarnings-totalExpenses) €")
             }
             .padding()
         }

@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View{
         TabView(selection: $currentTab){
             
-            BankAccountView()
+            AccountView()
                 .tag("My account")
                 .tabItem{
                     Image(systemName: "creditcard.circle")

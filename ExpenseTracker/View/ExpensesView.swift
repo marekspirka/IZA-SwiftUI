@@ -8,6 +8,9 @@
 import SwiftUI
 import SwiftData
 
+import SwiftUI
+import SwiftData
+
 struct ExpensesView: View {
     @Binding var currentTable: String
     
@@ -24,38 +27,64 @@ struct ExpensesView: View {
     
     var body: some View {
         NavigationStack {
-            contentView
-                .navigationTitle("Expenses")
-                .overlay {
-                    if allExpenses.isEmpty || groupedExpenses.isEmpty {
-                        ContentUnavailableView {
-                            Label("No Expenses", systemImage: "tray.fill")
+            VStack {
+                totalEarningsAndExpensesView
+                contentView
+            }
+            .navigationTitle("Expenses")
+            .overlay {
+                if allExpenses.isEmpty || groupedExpenses.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Expenses", systemImage: "tray.fill")
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    addExpenseButton
+                }
+            }
+            .onChange(of: allExpenses, initial: true) { oldValue, newValue in
+                if newValue.count > oldValue.count || groupedExpenses.isEmpty || currentTable == "Categories" {
+                    GroupedExpenses(newValue)
+                }
+            }
+            .background(
+                EmptyView()
+                    .navigationDestination(
+                        isPresented: $isPushed,
+                        destination: {
+                            AddExpenseView(expense: isAddingNew ? nil : selectedExpense)
+                                .interactiveDismissDisabled()
                         }
-                    }
-                }
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        addExpenseButton
-                    }
-                }
-                .onChange(of: allExpenses, initial: true) { oldValue, newValue in
-                    if newValue.count > oldValue.count || groupedExpenses.isEmpty || currentTable == "Categories" {
-                        GroupedExpenses(newValue)
-                    }
-                }
-                .background(
-                    EmptyView()
-                        .navigationDestination(
-                            isPresented: $isPushed,
-                            destination: {
-                                AddExpenseView(expense: isAddingNew ? nil : selectedExpense)
-                                    .interactiveDismissDisabled()
-                            }
-                        )
-                )
+                    )
+            )
         }
     }
     
+    private var totalEarningsAndExpensesView: some View {
+        let (totalEarnings, totalExpenses) = Expense.calculateTotalEarningsAndExpenses(allExpenses: allExpenses)
+        
+        return HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Total Earnings")
+                    .font(.headline)
+                Text("\(totalEarnings) €")
+            }
+            .padding()
+            
+            Spacer()
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Total Expenses")
+                    .font(.headline)
+                Text("\(totalExpenses) €")
+                Text("\(totalExpenses-totalEarnings) €")
+            }
+            .padding()
+        }
+    }
+
     private var contentView: some View {
         List {
             ForEach(groupedExpenses.indices, id: \.self) { index in

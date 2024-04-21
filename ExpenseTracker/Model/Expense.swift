@@ -27,6 +27,21 @@ class Expense {
         self.category = category
     }
     
+    static func calculateTotalEarningsAndExpenses(allExpenses: [Expense]) -> (earnings: Double, expenses: Double) {
+        var totalEarnings: Double = 0
+        var totalExpenses: Double = 0
+        
+        for expense in allExpenses {
+            if expense.type == "income" {
+                totalEarnings += expense.amount
+            } else {
+                totalExpenses += expense.amount
+            }
+        }
+        
+        return (totalEarnings, totalExpenses)
+    }
+    
     @Transient
     var currencyString: String {
         let formatter = NumberFormatter()
@@ -40,7 +55,3 @@ class Expense {
         }
     }
 }
-
-
-
-

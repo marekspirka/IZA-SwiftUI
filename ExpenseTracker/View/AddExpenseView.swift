@@ -33,18 +33,25 @@ struct AddExpenseView: View {
     private var saveButtonTitle: String {
         return isEditing ? "Save" : "Add"
     }
-    
-    private var cancelButtonTitle: String {
-        return isEditing ? "Close" : "Cancel"
-    }
-    
+  
     init(expense: Expense? = nil) {
         _editExpense = State(initialValue: expense)
-        _title = State(initialValue: expense?.title ?? "")
-        _subTitle = State(initialValue: expense?.subTitle ?? "")
-        _date = State(initialValue: expense?.date ?? .init())
-        _amount = State(initialValue: expense?.amount ?? 0)
-        _category = State(initialValue: expense?.category)
+        
+        if let expense = expense {
+            print("Som editovací")
+            _title = State(initialValue: expense.title)
+            _subTitle = State(initialValue: expense.subTitle)
+            _date = State(initialValue: expense.date)
+            _amount = State(initialValue: expense.amount)
+            _category = State(initialValue: expense.category)
+        } else {
+            print("som novu vytvárací")
+            _title = State(initialValue: "")
+            _subTitle = State(initialValue: "")
+            _date = State(initialValue: Date())
+            _amount = State(initialValue: 0)
+            _category = State(initialValue: nil)
+        }
     }
 
     var body: some View {
@@ -98,13 +105,6 @@ struct AddExpenseView: View {
             .navigationTitle(isEditing ? "Edit Expense" : "Add Expense")
             .interactiveDismissDisabled()
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(cancelButtonTitle) {
-                        dismiss()
-                    }
-                    .tint(.red)
-                }
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(saveButtonTitle) {
                         saveExpense()

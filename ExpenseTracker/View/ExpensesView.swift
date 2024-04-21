@@ -15,12 +15,15 @@ struct ExpensesView: View {
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
     
     @State private var groupedExpenses: [GroupedExpenses] = []
-    @State private var addExpense: Bool = false
+    @State private var isPushed: Bool = false
     @State private var selectedExpense: Expense?
     @Environment(\.modelContext) private var context
     
+    // New state variable to track the intention to add or edit
+    @State private var isAddingNew: Bool = false
+    
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             contentView
                 .navigationTitle("Expenses")
                 .overlay {
@@ -40,17 +43,16 @@ struct ExpensesView: View {
                         GroupedExpenses(newValue)
                     }
                 }
-                .sheet(isPresented: $addExpense) {
-                    if let selectedExpense = selectedExpense {
-                        // Open AddExpenseView with the selected expense for editing
-                        AddExpenseView(expense: selectedExpense)
-                            .interactiveDismissDisabled()
-                    } else {
-                        // Open AddExpenseView for adding a new expense
-                        AddExpenseView()
-                            .interactiveDismissDisabled()
-                    }
-                }
+                .background(
+                    EmptyView()
+                        .navigationDestination(
+                            isPresented: $isPushed,
+                            destination: {
+                                AddExpenseView(expense: isAddingNew ? nil : selectedExpense)
+                                    .interactiveDismissDisabled()
+                            }
+                        )
+                )
         }
     }
     
@@ -65,7 +67,6 @@ struct ExpensesView: View {
             }
         }
     }
-
 
     private func expenseCard(_ expense: Expense) -> some View {
         ZStack {
@@ -86,10 +87,10 @@ struct ExpensesView: View {
         }
     }
 
-    
     private var addExpenseButton: some View {
         Button {
-            addExpense.toggle()
+            isPushed = true
+            isAddingNew = true // Set the intention to add new expense
         } label: {
             Image(systemName: "plus.circle.fill")
                 .font(.title3)
@@ -98,7 +99,8 @@ struct ExpensesView: View {
     
     private func editExpense(for expense: Expense) {
         selectedExpense = expense
-        addExpense = true
+        isPushed = true
+        isAddingNew = false // Set the intention to edit existing expense
     }
 
     
@@ -132,12 +134,10 @@ struct ExpensesView: View {
                 let date2 = calendar.date(from: $1.key) ?? .init()
                            
                 return calendar.compare(date1,  to: date2, toGranularity: .day) == .orderedDescending
-                           
-                           
             }
             
             await MainActor.run{
-                    groupedExpenses = sordedDict.compactMap({dict in
+                groupedExpenses = sordedDict.compactMap({dict in
                     let date = Calendar.current.date(from: dict.key) ?? .init()
                     return .init(date: date, expenses: dict.value)
                 })

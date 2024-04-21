@@ -17,7 +17,7 @@ struct AddExpenseView: View {
     @State private var title: String = ""
     @State private var subTitle: String = ""
     @State private var date: Date = Date()
-    @State private var amount: Double = 0  // Change to Double
+    @State private var amount: CGFloat = 0  
     @State private var category: Category?
     @State private var type: String = ""
     

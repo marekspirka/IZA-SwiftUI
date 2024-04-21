@@ -24,7 +24,7 @@ struct CategoryView: View {
                 .overlay{
                     if allCategories.isEmpty {
                         ContentUnavailableView{
-                            Label("No Categories", systemImage: "tray.fill")
+                            Label("No Categories", systemImage: "pencil.slash")
                         }
                     }
                 }
@@ -67,7 +67,7 @@ struct CategoryView: View {
                 }
             } else {
                 ContentUnavailableView {
-                    Label("No expenses", systemImage: "tray.fill")
+                    Label("No expenses", systemImage: "pencil.slash")
                 }
             }
         } label: {

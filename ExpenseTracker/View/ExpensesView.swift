@@ -21,14 +21,13 @@ struct ExpensesView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                totalEarningsAndExpensesView
                 contentView
             }
             .navigationTitle("Expenses")
             .overlay {
-                if allExpenses.isEmpty || viewModel.groupedExpenses.isEmpty { // Access groupedExpenses through viewModel
+                if allExpenses.isEmpty || viewModel.groupedExpenses.isEmpty {
                     ContentUnavailableView {
-                        Label("No Expenses", systemImage: "tray.fill")
+                        Label("No Expenses", systemImage: "pencil.slash")
                     }
                 }
             }
@@ -38,7 +37,7 @@ struct ExpensesView: View {
                 }
             }
             .onChange(of: allExpenses, initial: true) { oldValue, newValue in
-                if newValue.count > oldValue.count || viewModel.groupedExpenses.isEmpty || currentTable == "Categories" { // Access groupedExpenses through viewModel
+                if newValue.count > oldValue.count || viewModel.groupedExpenses.isEmpty || currentTable == "Categories" {
                     Task {
                             await viewModel.groupExpenses(newValue)
                     }
@@ -55,7 +54,7 @@ struct ExpensesView: View {
                     )
             )
         }
-        .environmentObject(viewModel) // Inject viewModel as environment object
+        .environmentObject(viewModel)
     }
 
     private var totalEarningsAndExpensesView: some View {
@@ -83,8 +82,8 @@ struct ExpensesView: View {
 
     private var contentView: some View {
         List {
-            ForEach(viewModel.groupedExpenses.indices, id: \.self) { index in // Access groupedExpenses through viewModel
-                let group = viewModel.groupedExpenses[index] // Access groupedExpenses through viewModel
+            ForEach(viewModel.groupedExpenses.indices, id: \.self) { index in
+                let group = viewModel.groupedExpenses[index]
                 let expensesOfTypeExpense = group.expenses.filter { $0.type == "expense" }
                 if !expensesOfTypeExpense.isEmpty {
                     Section(header: Text(group.groupTitle)) {
@@ -96,18 +95,24 @@ struct ExpensesView: View {
             }
         }
     }
+    
+    func deleteExpense(_ expense: Expense) {
+        context.delete(expense)
+
+        viewModel.updateAfterDeleted(expense)
+    }
 
     private func expenseCard(_ expense: Expense) -> some View {
         ZStack {
             Button(action: {
                 viewModel.editExpense(for: expense)
             }) {
-                Color.clear // Invisible button to capture taps for editing
+                Color.clear
             }
             CardView(expense: expense)
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     Button {
-                        viewModel.deleteExpense(expense)
+                        deleteExpense(expense)
                     } label: {
                         Image(systemName: "trash")
                     }

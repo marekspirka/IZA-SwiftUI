@@ -55,19 +55,12 @@ class ExpenseViewModel: ObservableObject {
         isAddingNew = false // Set the intention to edit existing expense
     }
 
-    func deleteExpense(_ expense: Expense) {
-        context.delete(expense)
-
-        groupedExpenses.indices.forEach { index in // Access groupedExpenses through viewModel
-            var group = groupedExpenses[index] // Access groupedExpenses through viewModel
-            group.expenses.removeAll { $0.id == expense.id }
-
-            if group.expenses.isEmpty {
-                groupedExpenses.remove(at: index) // Access groupedExpenses through viewModel
-            } else {
-                groupedExpenses[index] = group // Access groupedExpenses through viewModel
-            }
-        }
+    func updateAfterDeleted(_ expense: Expense) {
+        groupedExpenses = groupedExpenses.map { group in
+               var mutableGroup = group
+               mutableGroup.expenses.removeAll { $0.id == expense.id }
+               return mutableGroup
+           }.filter { !$0.expenses.isEmpty }
     }
     
     // Define a binding property for isPushed

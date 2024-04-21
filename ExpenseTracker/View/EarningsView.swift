@@ -24,7 +24,7 @@ struct EarningsView: View {
                 .overlay {
                     if allExpenses.isEmpty || viewModel.groupedExpenses.isEmpty {
                         ContentUnavailableView {
-                            Label("No Incomes", systemImage: "tray.fill")
+                            Label("No Incomes", systemImage: "pencil.slash")
                         }
                     }
                 }
@@ -68,6 +68,11 @@ struct EarningsView: View {
             }
         }
     }
+    func deleteExpense(_ expense: Expense) {
+        context.delete(expense)
+
+        viewModel.updateAfterDeleted(expense)
+    }
 
     private func expenseCard(_ expense: Expense) -> some View {
         ZStack {
@@ -79,7 +84,7 @@ struct EarningsView: View {
             CardView(expense: expense)
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     Button {
-                        viewModel.deleteExpense(expense)
+                        deleteExpense(expense)
                     } label: {
                         Image(systemName: "trash")
                     }

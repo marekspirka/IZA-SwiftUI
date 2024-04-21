@@ -13,7 +13,7 @@ import SwiftData
 class Expense {
     var title: String
     var subTitle: String
-    var amount: Double
+    var amount: CGFloat
     var date: Date
     var category: Category?
     var type: String

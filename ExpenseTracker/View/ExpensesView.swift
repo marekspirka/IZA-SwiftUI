@@ -8,23 +8,16 @@
 import SwiftUI
 import SwiftData
 
-import SwiftUI
-import SwiftData
-
 struct ExpensesView: View {
     @Binding var currentTable: String
-    
+
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
-    
-    @State private var groupedExpenses: [GroupedExpenses] = []
-    @State private var isPushed: Bool = false
-    @State private var selectedExpense: Expense?
+
+    // Create an instance of ExpenseViewModel
+    @StateObject private var viewModel = ExpenseViewModel()
     @Environment(\.modelContext) private var context
-    
-    // New state variable to track the intention to add or edit
-    @State private var isAddingNew: Bool = false
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,7 +26,7 @@ struct ExpensesView: View {
             }
             .navigationTitle("Expenses")
             .overlay {
-                if allExpenses.isEmpty || groupedExpenses.isEmpty {
+                if allExpenses.isEmpty || viewModel.groupedExpenses.isEmpty { // Access groupedExpenses through viewModel
                     ContentUnavailableView {
                         Label("No Expenses", systemImage: "tray.fill")
                     }
@@ -41,30 +34,33 @@ struct ExpensesView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    addExpenseButton
+                    viewModel.addExpenseButton
                 }
             }
             .onChange(of: allExpenses, initial: true) { oldValue, newValue in
-                if newValue.count > oldValue.count || groupedExpenses.isEmpty || currentTable == "Categories" {
-                    GroupedExpenses(newValue)
+                if newValue.count > oldValue.count || viewModel.groupedExpenses.isEmpty || currentTable == "Categories" { // Access groupedExpenses through viewModel
+                    Task {
+                            await viewModel.groupExpenses(newValue)
+                    }
                 }
             }
             .background(
                 EmptyView()
                     .navigationDestination(
-                        isPresented: $isPushed,
+                        isPresented: viewModel.isPushedBinding,
                         destination: {
-                            AddExpenseView(expense: isAddingNew ? nil : selectedExpense)
+                            AddExpenseView(expense: viewModel.isAddingNew ? nil : viewModel.selectedExpense)
                                 .interactiveDismissDisabled()
                         }
                     )
             )
         }
+        .environmentObject(viewModel) // Inject viewModel as environment object
     }
-    
+
     private var totalEarningsAndExpensesView: some View {
         let (totalEarnings, totalExpenses) = Expense.calculateTotalEarningsAndExpenses(allExpenses: allExpenses)
-        
+
         return HStack {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Total Earnings")
@@ -72,9 +68,9 @@ struct ExpensesView: View {
                 Text("\(totalEarnings) €")
             }
             .padding()
-            
+
             Spacer()
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text("Total Expenses")
                     .font(.headline)
@@ -87,8 +83,8 @@ struct ExpensesView: View {
 
     private var contentView: some View {
         List {
-            ForEach(groupedExpenses.indices, id: \.self) { index in
-                let group = groupedExpenses[index]
+            ForEach(viewModel.groupedExpenses.indices, id: \.self) { index in // Access groupedExpenses through viewModel
+                let group = viewModel.groupedExpenses[index] // Access groupedExpenses through viewModel
                 let expensesOfTypeExpense = group.expenses.filter { $0.type == "expense" }
                 if !expensesOfTypeExpense.isEmpty {
                     Section(header: Text(group.groupTitle)) {
@@ -104,77 +100,19 @@ struct ExpensesView: View {
     private func expenseCard(_ expense: Expense) -> some View {
         ZStack {
             Button(action: {
-                editExpense(for: expense)
+                viewModel.editExpense(for: expense)
             }) {
                 Color.clear // Invisible button to capture taps for editing
             }
             CardView(expense: expense)
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     Button {
-                        deleteExpense(expense)
+                        viewModel.deleteExpense(expense)
                     } label: {
                         Image(systemName: "trash")
                     }
                     .tint(.red)
                 }
-        }
-    }
-
-    private var addExpenseButton: some View {
-        Button {
-            isPushed = true
-            isAddingNew = true // Set the intention to add new expense
-        } label: {
-            Image(systemName: "plus.circle.fill")
-                .font(.title3)
-        }
-    }
-    
-    private func editExpense(for expense: Expense) {
-        selectedExpense = expense
-        isPushed = true
-        isAddingNew = false // Set the intention to edit existing expense
-    }
-
-    
-    private func deleteExpense(_ expense: Expense) {
-        context.delete(expense)
-        
-        groupedExpenses.indices.forEach { index in
-            var group = groupedExpenses[index]
-            group.expenses.removeAll { $0.id == expense.id }
-            
-            if group.expenses.isEmpty {
-                groupedExpenses.remove(at: index)
-            } else {
-                groupedExpenses[index] = group
-            }
-        }
-    }
-
-    
-    private func GroupedExpenses(_ expenses: [Expense]) {
-        Task.detached(priority: .high) {
-            let groupedDict = Dictionary(grouping: expenses) { expense in
-                let dateComponents = Calendar.current.dateComponents([.day, .month, .year], from:
-                                                                            expense.date)
-                return dateComponents
-            }
-            
-            let sordedDict = groupedDict.sorted{
-                let calendar = Calendar.current
-                let date1 = calendar.date(from: $0.key) ?? .init()
-                let date2 = calendar.date(from: $1.key) ?? .init()
-                           
-                return calendar.compare(date1,  to: date2, toGranularity: .day) == .orderedDescending
-            }
-            
-            await MainActor.run{
-                groupedExpenses = sordedDict.compactMap({dict in
-                    let date = Calendar.current.date(from: dict.key) ?? .init()
-                    return .init(date: date, expenses: dict.value)
-                })
-            }
         }
     }
 }

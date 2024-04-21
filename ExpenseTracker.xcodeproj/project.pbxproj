@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D503AFD2BD57DC500BC7DF8 /* TransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */; };
 		1DD398012BD4416700E93680 /* EarningsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD398002BD4416700E93680 /* EarningsView.swift */; };
 		1DD398032BD441C400E93680 /* BankAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD398022BD441C400E93680 /* BankAccountView.swift */; };
 		1DE87E3D2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE87E3C2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewModel.swift; sourceTree = "<group>"; };
 		1DD398002BD4416700E93680 /* EarningsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsView.swift; sourceTree = "<group>"; };
 		1DD398022BD441C400E93680 /* BankAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountView.swift; sourceTree = "<group>"; };
 		1DE87E392BD3A94900EBE6B9 /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D503B022BD5835100BC7DF8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		1DE87E302BD3A94900EBE6B9 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +83,7 @@
 		1DE87E3B2BD3A94900EBE6B9 /* ExpenseTracker */ = {
 			isa = PBXGroup;
 			children = (
+				1D503B022BD5835100BC7DF8 /* ViewModel */,
 				1DE87E4B2BD3ABA800EBE6B9 /* Model */,
 				1DE87E4A2BD3AB9F00EBE6B9 /* View */,
 				1DE87E3E2BD3A94900EBE6B9 /* ContentView.swift */,
@@ -197,6 +208,7 @@
 				1DE87E5F2BD3C37300EBE6B9 /* AddExpenseView.swift in Sources */,
 				1DE87E3D2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift in Sources */,
 				1DE87E612BD3CFE700EBE6B9 /* CardView.swift in Sources */,
+				1D503AFD2BD57DC500BC7DF8 /* TransferViewModel.swift in Sources */,
 				1DE87E4F2BD3AE7B00EBE6B9 /* Category.swift in Sources */,
 				1DD398012BD4416700E93680 /* EarningsView.swift in Sources */,
 			);

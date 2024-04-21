@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SwiftData
+
 
 struct GroupedExpenses: Identifiable{
     var id: UUID = .init()

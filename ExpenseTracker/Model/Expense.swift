@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+
 @Model
 class Expense {
     var title: String
@@ -39,5 +40,7 @@ class Expense {
         }
     }
 }
+
+
 
 

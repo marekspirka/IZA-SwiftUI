@@ -26,7 +26,7 @@ struct ContentView: View {
                     Image(systemName: "arrow.down.right.circle.fill")
                     Text("Expenses")
                 }
-            EarningsView()
+            EarningsView(currentTable: $currentTab)
                 .tag("Earnings")
                 .tabItem{
                     Image(systemName: "arrow.up.forward.circle.fill")

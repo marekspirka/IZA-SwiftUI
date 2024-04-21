@@ -110,7 +110,7 @@ struct AddExpenseView: View {
                         .labelsHidden()
                 }
             }
-            .navigationTitle(isEditing ? "Edit Expense" : "Add Expense")
+            .navigationTitle(isEditing ? "Edit Transfer" : "Add Transfer")
             .interactiveDismissDisabled()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

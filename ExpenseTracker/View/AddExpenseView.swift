@@ -131,9 +131,9 @@ struct AddExpenseView: View {
             editExpense.date = date
             editExpense.amount = amount
             editExpense.category = category
-            editExpense.type = type // Update the type property
+            editExpense.type = type
         } else {
-            let expense = Expense(title: title, subTitle: subTitle, amount: amount, date: date, type: type, category: category) // Include type when creating a new Expense
+            let expense = Expense(title: title, subTitle: subTitle, amount: amount, date: date, type: type, category: category)
             context.insert(expense)
         }
         

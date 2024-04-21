@@ -14,7 +14,6 @@ struct CategoryView: View {
     
     @State private var addCategory: Bool = false
     @State private var catName: String = ""
-    
     @State private var deleteCat: Bool = false
     @State private var requestedCategory: Category?
     

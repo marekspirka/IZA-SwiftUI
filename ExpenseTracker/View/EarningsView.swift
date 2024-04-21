@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct EarningsView: View {
-    @Binding var currentTable: String
+    @Binding var currentTable: String 
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
     

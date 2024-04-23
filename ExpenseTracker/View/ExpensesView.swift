@@ -26,7 +26,8 @@ struct ExpensesView: View {
             }
             .navigationTitle("Expenses")
             .overlay {
-                if allExpenses.isEmpty || viewModel.groupedExpenses.isEmpty {
+                let expense = allExpenses.filter { $0.type == "expense" }
+                if expense.isEmpty || viewModel.groupedExpenses.isEmpty {
                     ContentUnavailableView {
                         Label("No Expenses", systemImage: "pencil.slash")
                     }

@@ -22,7 +22,8 @@ struct EarningsView: View {
             contentView
                 .navigationTitle("Incomes")
                 .overlay {
-                    if allExpenses.isEmpty || viewModel.groupedExpenses.isEmpty {
+                    let incomes = allExpenses.filter { $0.type == "income" }
+                    if incomes.isEmpty || viewModel.groupedExpenses.isEmpty {
                         ContentUnavailableView {
                             Label("No Incomes", systemImage: "pencil.slash")
                         }

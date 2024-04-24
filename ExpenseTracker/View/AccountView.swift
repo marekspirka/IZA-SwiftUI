@@ -16,11 +16,8 @@ struct AccountView: View {
     var body: some View {
         VStack {
             CreditCardView(totalEarnings: totalEarnings, totalExpenses: totalExpenses)
-                .padding()
             Spacer()
         }
-        .background(Color(UIColor.systemGray6))
-        .edgesIgnoringSafeArea(.all)
     }
     
     private var totalEarnings: Double {
@@ -39,58 +36,99 @@ struct CreditCardView: View {
     let totalExpenses: Double
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("My account")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.black)
-                .padding(.top, 40)
-                .padding(.horizontal)
-            
-            RoundedRectangle(cornerRadius: 25)
-                .fill(LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .leading, endPoint: .trailing))
+        NavigationStack {
+            VStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color("CreditLeftColor"),
+                                Color("CreditRightColor")
+                            ]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .frame(width: 350, height: 200)
-                .overlay(
-                    VStack(alignment: .leading, spacing: 20) {
-                        HStack(alignment: .center) {
-                            Spacer()
-                            VStack(alignment: .center) {
-                                Text("Total:")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                Text("\(String(format: "%.2f", totalEarnings - totalExpenses))€")
-                                    .foregroundColor(.white)
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                            }
-                            Spacer()
-                        }
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("Income:")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                Text("\(String(format: "%.2f", totalEarnings))€")
-                                    .foregroundColor(.white)
-                            }.padding()
-                            Spacer()
-                            VStack(alignment: .trailing) {
-                                Text("Expenses:")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                Text("\(String(format: "%.2f", totalExpenses))€")
-                                    .foregroundColor(.white)
-                            }.padding([.trailing], 20)
-                        }
-                    }
+                    .overlay(cardContent)
                     .padding()
-                )
-                .padding()
-                .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
-                .padding(.horizontal)
-            
-            Spacer()
+                    .shadow(color: Color.black.opacity(0.3), radius: 3, x: 0, y: 2)
+                Spacer()
+            }
+            .navigationTitle("Your Account")
+        }
+    }
+
+    
+    private var cardContent: some View {
+        VStack(spacing: 30) {
+            totalAmountView
+            HStack {
+                incomeView
+                Spacer()
+                expenseView
+            }
+        }
+        .padding()
+    }
+    
+    private var totalAmountView: some View {
+        VStack {
+            HStack {
+                Spacer()
+                VStack {
+                    Text("Total:")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Text("\(String(format: "%.2f", totalEarnings - totalExpenses))€")
+                        .foregroundColor(.white)
+                        .font(.title)
+                        .fontWeight(.bold)
+                }
+                Spacer()
+            }
+        }
+    }
+ 
+    private var incomeView: some View {
+        HStack{
+            Image(systemName: "arrow.up")
+                .foregroundStyle(.green)
+                .bold()
+                .padding(12)
+                .background {
+                Circle()
+                        .fill(.green.opacity(0.3))
+                }
+            VStack(alignment: .leading) {
+                Text("Income:")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text("\(String(format: "%.2f", totalEarnings))€")
+                    .foregroundColor(.white)
+            }
+        }
+    }
+    
+    private var expenseView: some View {
+        HStack{
+            Image(systemName: "arrow.down")
+                .foregroundStyle(.red)
+                .bold()
+                .padding(12)
+                .background {
+                Circle()
+                        .fill(.red.opacity(0.3))
+                }
+            VStack(alignment: .leading) {
+                Text("Expense:")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text("\(String(format: "%.2f", totalExpenses))€")
+                    .foregroundColor(.white)
+            }
+            .padding(.trailing)
         }
     }
 }

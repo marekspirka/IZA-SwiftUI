@@ -38,12 +38,6 @@ struct ContentView: View {
                     Image(systemName: "text.justify")
                     Text("Categories")
                 }
-            SettingsView()
-                .tag("Settings")
-                .tabItem{
-                    Image(systemName: "gearshape.fill")
-                    Text("Settings")
-                }
         }
     }
 }

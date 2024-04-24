@@ -13,7 +13,6 @@ struct ExpensesView: View {
 
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
-
     // Create an instance of ExpenseViewModel
     @StateObject private var viewModel = ExpenseViewModel()
     @Environment(\.modelContext) private var context

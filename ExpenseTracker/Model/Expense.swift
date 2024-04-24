@@ -46,7 +46,7 @@ class Expense {
     var currencyString: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.currencySymbol = "" // Set currency symbol to empty string to prevent duplication
+        formatter.currencySymbol = ""
 
         if let amountString = formatter.string(for: amount) {
             return "\(amountString) €"

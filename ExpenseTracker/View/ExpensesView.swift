@@ -21,7 +21,6 @@ struct ExpensesView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                totalEarningsAndExpensesView
                 contentView
             }
             .navigationTitle("Expenses")
@@ -57,29 +56,6 @@ struct ExpensesView: View {
             )
         }
         .environmentObject(viewModel)
-    }
-
-    private var totalEarningsAndExpensesView: some View {
-        let (totalEarnings, totalExpenses) = Expense.calculateTotalEarningsAndExpenses(allExpenses: allExpenses)
-
-        return HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Total Earnings")
-                    .font(.headline)
-                Text("\(totalEarnings) €")
-            }
-            .padding()
-
-            Spacer()
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Total Expenses")
-                    .font(.headline)
-                Text("\(totalExpenses) €")
-                Text("\(totalEarnings-totalExpenses) €")
-            }
-            .padding()
-        }
     }
 
     private var contentView: some View {

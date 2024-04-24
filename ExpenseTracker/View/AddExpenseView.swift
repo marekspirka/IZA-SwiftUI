@@ -24,7 +24,7 @@ struct AddExpenseView: View {
     @Query(animation: .snappy) private var allCategories: [Category]
     
     var isAddButtonDisabled: Bool {
-        return title.isEmpty || subTitle.isEmpty || amount.isZero
+        return title.isEmpty || subTitle.isEmpty || amount.isZero || type.isEmpty
     }
     
     var isEditing: Bool {

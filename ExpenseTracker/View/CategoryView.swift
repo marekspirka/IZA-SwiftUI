@@ -111,7 +111,7 @@ struct CategoryView: View {
                 }
             }
         }
-        .presentationDetents([.height(250)])
+        .presentationDetents([.height(150)])
         .presentationCornerRadius(20)
         .interactiveDismissDisabled()
     }

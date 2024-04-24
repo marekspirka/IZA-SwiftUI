@@ -71,7 +71,6 @@ struct EarningsView: View {
     }
     func deleteExpense(_ expense: Expense) {
         context.delete(expense)
-
         viewModel.updateAfterDeleted(expense)
     }
 

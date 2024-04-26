@@ -32,10 +32,14 @@ struct AccountView: View {
                             }
                         }
                         .aspectRatio(2, contentMode: .fit)
-                        .padding()
+                        .padding(20)
                         .chartLegend(.hidden)
                     }
+                    .background(Color.gray.opacity(0.4))
+                    .cornerRadius(20)
+                    .padding()
                 }
+                .padding()
             }
         }
     }

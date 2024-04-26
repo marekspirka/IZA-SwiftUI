@@ -10,7 +10,6 @@ import SwiftData
 
 struct ExpensesView: View {
     @Binding var currentTable: String
-
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
     // Create an instance of ExpenseViewModel
@@ -75,7 +74,6 @@ struct ExpensesView: View {
     
     func deleteExpense(_ expense: Expense) {
         context.delete(expense)
-
         viewModel.updateAfterDeleted(expense)
     }
 

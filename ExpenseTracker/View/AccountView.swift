@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Charts
 
 struct AccountView: View {
     
@@ -14,10 +15,45 @@ struct AccountView: View {
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
     
     var body: some View {
-        VStack {
-            CreditCardView(totalEarnings: totalEarnings, totalExpenses: totalExpenses)
-            Spacer()
+        ScrollView {
+            VStack{
+                CreditCardView(totalEarnings: totalEarnings, totalExpenses: totalExpenses)
+                    .padding()
+                Spacer(minLength: 50)
+                ScrollView{
+                    VStack {
+                        Chart {
+                            ForEach(monthlyIncomeStats.indices, id: \.self) { index in
+                                BarMark(x: .value("Month", monthlyIncomeStats[index].month),
+                                        y: .value("Income", monthlyIncomeStats[index].income)
+                                )
+                                .cornerRadius(20)
+                                .foregroundStyle(by: .value("Month", monthlyIncomeStats[index].month))
+                            }
+                        }
+                        .aspectRatio(2, contentMode: .fit)
+                        .padding()
+                        .chartLegend(.hidden)
+                    }
+                }
+            }
         }
+    }
+    
+    private var monthlyIncomeStats: [(month: String, income: Double)] {
+            return allExpenses.monthlyAndYearlyStats().monthlyIncome
+        }
+        
+    private var monthlyExpenseStats: [(month: String, expenses: Double)] {
+            return allExpenses.monthlyAndYearlyStats().monthlyExpenses
+        }
+    
+    private var yearlyIncomeStats: [(year: Int, income: Double)] {
+        return allExpenses.monthlyAndYearlyStats().yearlyIncome
+    }
+    
+    private var yearlyExpenseStats: [(year: Int, expenses: Double)] {
+        return allExpenses.monthlyAndYearlyStats().yearlyExpenses
     }
     
     private var totalEarnings: Double {
@@ -36,33 +72,37 @@ struct CreditCardView: View {
     let totalExpenses: Double
     
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color("CreditLeftColor"),
-                                Color("CreditRightColor")
-                            ]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
+        VStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 25)
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color("CreditLeftColor"),
+                            Color("CreditRightColor")
+                        ]),
+                        startPoint: .leading,
+                        endPoint: .trailing
                     )
-                    .frame(width: 350, height: 200)
-                    .overlay(cardContent)
-                    .padding()
-                    .shadow(color: Color.black.opacity(0.3), radius: 3, x: 0, y: 2)
-                Spacer()
-            }
-            .navigationTitle("Your Account")
+                )
+                .frame(width: 350, height: 230)
+                .overlay(cardContent)
+                .padding()
+                .shadow(color: Color.black.opacity(0.3), radius: 3, x: 0, y: 2)
+            
+            Spacer()
         }
+        .navigationTitle("Your Account")
     }
 
-    
     private var cardContent: some View {
         VStack(spacing: 30) {
+            Text("Your account")
+                .bold()
+                .font(.title)
+                .foregroundColor(.white)
+                .padding(.bottom, 0)
             totalAmountView
+                .padding(.top, 0)
             HStack {
                 incomeView
                 Spacer()
@@ -90,7 +130,7 @@ struct CreditCardView: View {
             }
         }
     }
- 
+    
     private var incomeView: some View {
         HStack{
             Image(systemName: "arrow.up")

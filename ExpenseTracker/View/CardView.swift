@@ -30,12 +30,12 @@ struct CardView: View {
                 }
             }
             .lineLimit(1)
-            
+        
             Spacer(minLength: 8)
             
             Text(expense.currencyString)
                 .font(.title3.bold())
-            
+
             Text(expense.type == "income" ? "Income" : "Expense")
                     .font(.caption)
                     .foregroundColor(expense.type == "income" ? .green : .red)
@@ -47,5 +47,3 @@ struct CardView: View {
         }
     }
 }
-
-

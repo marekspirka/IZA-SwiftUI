@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-import Charts
+
 
 struct AccountView: View {
     
@@ -20,44 +20,8 @@ struct AccountView: View {
                 CreditCardView(totalEarnings: totalEarnings, totalExpenses: totalExpenses)
                     .padding()
                 Spacer(minLength: 50)
-                ScrollView{
-                    VStack {
-                        Chart {
-                            ForEach(monthlyIncomeStats.indices, id: \.self) { index in
-                                BarMark(x: .value("Month", monthlyIncomeStats[index].month),
-                                        y: .value("Income", monthlyIncomeStats[index].income)
-                                )
-                                .cornerRadius(20)
-                                .foregroundStyle(by: .value("Month", monthlyIncomeStats[index].month))
-                            }
-                        }
-                        .aspectRatio(2, contentMode: .fit)
-                        .padding(20)
-                        .chartLegend(.hidden)
-                    }
-                    .background(Color.gray.opacity(0.4))
-                    .cornerRadius(20)
-                    .padding()
-                }
-                .padding()
             }
         }
-    }
-    
-    private var monthlyIncomeStats: [(month: String, income: Double)] {
-            return allExpenses.monthlyAndYearlyStats().monthlyIncome
-        }
-        
-    private var monthlyExpenseStats: [(month: String, expenses: Double)] {
-            return allExpenses.monthlyAndYearlyStats().monthlyExpenses
-        }
-    
-    private var yearlyIncomeStats: [(year: Int, income: Double)] {
-        return allExpenses.monthlyAndYearlyStats().yearlyIncome
-    }
-    
-    private var yearlyExpenseStats: [(year: Int, expenses: Double)] {
-        return allExpenses.monthlyAndYearlyStats().yearlyExpenses
     }
     
     private var totalEarnings: Double {

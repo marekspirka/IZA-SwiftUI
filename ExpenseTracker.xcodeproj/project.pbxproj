@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D503AFD2BD57DC500BC7DF8 /* TransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */; };
+		1D765CF92BDE4D060009B85B /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D765CF82BDE4D060009B85B /* StatisticsView.swift */; };
 		1DD398012BD4416700E93680 /* EarningsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD398002BD4416700E93680 /* EarningsView.swift */; };
 		1DE87E3D2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE87E3C2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift */; };
 		1DE87E3F2BD3A94900EBE6B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE87E3E2BD3A94900EBE6B9 /* ContentView.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewModel.swift; sourceTree = "<group>"; };
+		1D765CF82BDE4D060009B85B /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		1DD398002BD4416700E93680 /* EarningsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsView.swift; sourceTree = "<group>"; };
 		1DE87E392BD3A94900EBE6B9 /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE87E3C2BD3A94900EBE6B9 /* ExpenseTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackerApp.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				1DE87E522BD3B2C000EBE6B9 /* CategoryView.swift */,
 				1DE87E562BD3BA0900EBE6B9 /* SettingsView.swift */,
 				1DE87E602BD3CFE700EBE6B9 /* CardView.swift */,
+				1D765CF82BDE4D060009B85B /* StatisticsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				1DE87E572BD3BA0900EBE6B9 /* SettingsView.swift in Sources */,
 				1DE87E4D2BD3ABCE00EBE6B9 /* Expense.swift in Sources */,
 				1DE87E552BD3B36400EBE6B9 /* ExpensesView.swift in Sources */,
+				1D765CF92BDE4D060009B85B /* StatisticsView.swift in Sources */,
 				1DE87E3F2BD3A94900EBE6B9 /* ContentView.swift in Sources */,
 				1DE87E592BD3BA7B00EBE6B9 /* AccountView.swift in Sources */,
 				1DE87E5D2BD3BC7C00EBE6B9 /* GroupedExpenses.swift in Sources */,

@@ -38,6 +38,12 @@ struct ContentView: View {
                     Image(systemName: "text.justify")
                     Text("Categories")
                 }
+            StatisticsView()
+                .tag("Statistics")
+                .tabItem{
+                    Image(systemName: "chart.bar.xaxis.ascending")
+                    Text("Statistics")
+                }
         }
     }
 }

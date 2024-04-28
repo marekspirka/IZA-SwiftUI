@@ -8,94 +8,68 @@
 import SwiftUI
 import SwiftData
 
-struct AddExpenseView: View {
+struct AddTransferView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    
-    @State private var editExpense: Expense?
-    
-    @State private var title: String = ""
-    @State private var subTitle: String = ""
-    @State private var date: Date = Date()
-    @State private var amount: CGFloat = 0  
-    @State private var category: Category?
-    @State private var type: String = ""
-    
+    @ObservedObject private var viewModel: AddExpenseViewModel
     @Query(animation: .snappy) private var allCategories: [Category]
     
     var isAddButtonDisabled: Bool {
-        return title.isEmpty || subTitle.isEmpty || amount.isZero || type.isEmpty
+        return viewModel.title.isEmpty || viewModel.subTitle.isEmpty || viewModel.amount.isZero || viewModel.type.isEmpty
     }
     
     var isEditing: Bool {
-        return editExpense != nil
+        return viewModel.editExpense != nil
     }
     
     private var saveButtonTitle: String {
         return isEditing ? "Save" : "Add"
     }
   
-    init(expense: Expense? = nil) {
-        _editExpense = State(initialValue: expense)
-        
-        if let expense = expense {
-            _title = State(initialValue: expense.title)
-            _subTitle = State(initialValue: expense.subTitle)
-            _date = State(initialValue: expense.date)
-            _amount = State(initialValue: expense.amount)
-            _category = State(initialValue: expense.category)
-            _type = State(initialValue: expense.type)
-        } else {
-            _title = State(initialValue: "")
-            _subTitle = State(initialValue: "")
-            _date = State(initialValue: Date())
-            _amount = State(initialValue: 0)
-            _category = State(initialValue: nil)
-        }
+    init(expense: Expense? = nil, context: ModelContext) {
+        self.viewModel = AddExpenseViewModel(context: context, expense: expense)
     }
 
     var body: some View {
-        NavigationStack {
+        HStack {
             List {
                 Section("Title") {
-                    TextField("Name of Expense", text: $title)
+                    TextField("Name of Expense", text: $viewModel.title)
                 }
-                
+                               
                 Section("Description") {
-                    TextField("Write here description", text: $subTitle)
+                    TextField("Write here description", text: $viewModel.subTitle)
                 }
-                
+                               
                 Section("Price") {
                     HStack(spacing: 4) {
-                        TextField("0.0", value: $amount, formatter: formatter)
+                        TextField("0.0", value: $viewModel.amount, formatter: NumberFormatter())
                             .keyboardType(.decimalPad) // Use decimalPad for entering amount
                         Text("€").fontWeight(.semibold)
                     }
                 }
-                
+                               
                 Section("Type") {
-                    Picker("Type", selection: $type) {
+                    Picker("Type", selection: $viewModel.type) {
                         Text("Expense").tag("expense")
                         Text("Income").tag("income")
                     }
-                    .pickerStyle(SegmentedPickerStyle())
+                        .pickerStyle(SegmentedPickerStyle())
                 }
-                
+                               
                 if !allCategories.isEmpty {
-                    HStack {
-                        Text("Category")
-                        Spacer()
+                    Section("Category") {
                         Menu {
                             ForEach(allCategories) { category in
                                 Button(category.catName) {
-                                    self.category = category
+                                    viewModel.category = category
                                 }
                             }
                             Button("None") {
-                                category = nil
+                                viewModel.category = nil
                             }
                         } label: {
-                            if let catName = category?.catName {
+                            if let catName = viewModel.category?.catName {
                                 Text(catName)
                             } else {
                                 Text("None")
@@ -103,11 +77,12 @@ struct AddExpenseView: View {
                         }
                     }
                 }
-                
+                               
                 Section("Date") {
-                    DatePicker("", selection: $date, displayedComponents: [.date])
+                    DatePicker("", selection: $viewModel.date, displayedComponents: [.date])
                         .datePickerStyle(.graphical)
                         .labelsHidden()
+                    }
                 }
             }
             .navigationTitle(isEditing ? "Edit Transfer" : "Add Transfer")
@@ -115,36 +90,11 @@ struct AddExpenseView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(saveButtonTitle) {
-                        saveExpense()
+                        viewModel.saveExpense()
+                        dismiss()
                     }
                     .disabled(isAddButtonDisabled)
                 }
             }
         }
     }
-    
-    func saveExpense() {
-        if isEditing {
-            guard let editExpense = editExpense else { return }
-            editExpense.title = title
-            editExpense.subTitle = subTitle
-            editExpense.date = date
-            editExpense.amount = amount
-            editExpense.category = category
-            editExpense.type = type
-        } else {
-            let expense = Expense(title: title, subTitle: subTitle, amount: amount, date: date, type: type, category: category)
-            context.insert(expense)
-        }
-        
-        dismiss()
-    }
-    
-    var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        return formatter
-    }
-}
-

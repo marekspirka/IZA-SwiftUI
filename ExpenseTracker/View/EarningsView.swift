@@ -46,7 +46,7 @@ struct EarningsView: View {
                         .navigationDestination(
                             isPresented: viewModel.isPushedBinding,
                             destination: {
-                                AddExpenseView(expense: viewModel.isAddingNew ? nil : viewModel.selectedExpense)
+                                AddTransferView(expense: viewModel.isAddingNew ? nil : viewModel.selectedExpense, context: context)
                                     .interactiveDismissDisabled()
                             }
                         )

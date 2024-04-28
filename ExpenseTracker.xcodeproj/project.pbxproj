@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D1271BD2BDE86BC00082B63 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1271BC2BDE86BC00082B63 /* StatisticsViewModel.swift */; };
+		1D1271C12BDEC22300082B63 /* AddTransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1271C02BDEC22300082B63 /* AddTransferViewModel.swift */; };
 		1D503AFD2BD57DC500BC7DF8 /* TransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */; };
 		1D765CF92BDE4D060009B85B /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D765CF82BDE4D060009B85B /* StatisticsView.swift */; };
 		1DD398012BD4416700E93680 /* EarningsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD398002BD4416700E93680 /* EarningsView.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		1D1271BC2BDE86BC00082B63 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
+		1D1271C02BDEC22300082B63 /* AddTransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransferViewModel.swift; sourceTree = "<group>"; };
 		1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewModel.swift; sourceTree = "<group>"; };
 		1D765CF82BDE4D060009B85B /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		1DD398002BD4416700E93680 /* EarningsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsView.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			children = (
 				1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */,
 				1D1271BC2BDE86BC00082B63 /* StatisticsViewModel.swift */,
+				1D1271C02BDEC22300082B63 /* AddTransferViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				1D503AFD2BD57DC500BC7DF8 /* TransferViewModel.swift in Sources */,
 				1DE87E4F2BD3AE7B00EBE6B9 /* Category.swift in Sources */,
 				1DD398012BD4416700E93680 /* EarningsView.swift in Sources */,
+				1D1271C12BDEC22300082B63 /* AddTransferViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

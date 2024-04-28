@@ -13,7 +13,7 @@ struct EarningsView: View {
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
     
-    @StateObject private var viewModel = ExpenseViewModel()
+    @StateObject private var viewModel = TransferViewModel()
     @Environment(\.modelContext) private var context
     @State private var isAddingNew: Bool = false
     

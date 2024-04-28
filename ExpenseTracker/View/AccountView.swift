@@ -11,7 +11,7 @@ import SwiftData
 
 struct AccountView: View {
     @Binding var currentTable: String
-    @StateObject private var viewModel = ExpenseViewModel()
+    @StateObject private var viewModel = TransferViewModel()
     
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]

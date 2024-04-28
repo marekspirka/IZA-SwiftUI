@@ -8,13 +8,11 @@
 import SwiftUI
 import SwiftData
 
-class ExpenseViewModel: ObservableObject {
+class TransferViewModel: ObservableObject {
     @Published var groupedExpenses: [GroupedExpenses] = []
     @Environment(\.modelContext) private var context
     @Published var isPushed: Bool = false
     @Published var selectedExpense: Expense?
-    
-    // New state variable to track the intention to add or edit
     @Published var isAddingNew: Bool = false
 
     func groupExpenses(_ expenses: [Expense]) async {
@@ -42,7 +40,7 @@ class ExpenseViewModel: ObservableObject {
     var addExpenseButton: some View {
         Button {
             self.isPushed = true
-            self.isAddingNew = true // Set the intention to add new expense
+            self.isAddingNew = true
         } label: {
             Image(systemName: "plus.circle.fill")
                 .font(.title3)
@@ -52,7 +50,7 @@ class ExpenseViewModel: ObservableObject {
     func editExpense(for expense: Expense) {
         selectedExpense = expense
         isPushed = true
-        isAddingNew = false // Set the intention to edit existing expense
+        isAddingNew = false
     }
 
     func updateAfterDeleted(_ expense: Expense) {
@@ -63,7 +61,6 @@ class ExpenseViewModel: ObservableObject {
            }.filter { !$0.expenses.isEmpty }
     }
     
-    // Define a binding property for isPushed
         var isPushedBinding: Binding<Bool> {
             Binding(
                 get: { self.isPushed },

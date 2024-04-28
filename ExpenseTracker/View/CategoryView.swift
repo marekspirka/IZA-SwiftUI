@@ -10,8 +10,8 @@ import SwiftData
 
 struct CategoryView: View {
     @Query(animation: .snappy) private var allCategories: [Category]
-    @Environment(\.modelContext) private var context
     
+    @Environment(\.modelContext) private var context
     @State private var addCategory: Bool = false
     @State private var catName: String = ""
     @State private var deleteCat: Bool = false
@@ -57,8 +57,6 @@ struct CategoryView: View {
                     }
             }
         }
-        .background(Color.gray.opacity(0.05))
-        .scrollContentBackground(.hidden)
     }
     
     private func disclosureGroup(for category: Category) -> some View {

@@ -31,14 +31,35 @@ struct StatisticsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                ScrollView {
-                    MonthlyView(title: "Monthly Income", stats: monthlyIncomeStats, color: .green)
-                    MonthlyView(title: "Monthly Expense", stats: monthlyExpenseStats, color: .red)
-                    YearlyView(title: "Yearly Income", stats: yearlyIncomeStats, color: .green)
-                    YearlyView(title: "Yearly Expense", stats: yearlyExpenseStats, color: .red)
+            List {
+                VStack(alignment: .leading){
+                    Text("Monthly Income:")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    MonthlyView(stats: monthlyIncomeStats, color: .green)
+                    Text("Monthly Expense:")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    MonthlyView(stats: monthlyExpenseStats, color: .red)
+                    Text("Yearly Income:")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    YearlyView(stats: yearlyIncomeStats, color: .green)
+                    Text("Yearly Expense:")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    YearlyView(stats: yearlyExpenseStats, color: .red)
                 }
-                .padding()
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
             }
             .navigationTitle("Statistics")
         }
@@ -46,21 +67,15 @@ struct StatisticsView: View {
 }
 
 struct MonthlyView: View {
-    let title: String
     let stats: [(String, Double)]
     let color: Color
     
     var body: some View {
         VStack {
-            Text(title)
-                .font(.title2)
-                .bold()
-                .padding()
-                .foregroundColor(color)
             Chart {
                 ForEach(stats.indices, id: \.self) { index in
                     BarMark(x: .value("Month", stats[index].0),
-                            y: .value(title, stats[index].1)
+                            y: .value("Transfer", stats[index].1)
                     )
                     .cornerRadius(20)
                     .foregroundStyle(by: .value("Month", stats[index].0))
@@ -70,28 +85,21 @@ struct MonthlyView: View {
             .padding(20)
             .chartLegend(.hidden)
         }
-        .background(Color.gray.opacity(0.05))
+        .background(Color.gray.opacity(0.1))
         .cornerRadius(20)
-        .padding()
     }
 }
 
 struct YearlyView: View {
-    let title: String
     let stats: [(Int, Double)]
     let color: Color
     
     var body: some View {
         VStack {
-            Text(title)
-                .font(.title2)
-                .bold()
-                .padding()
-                .foregroundColor(color)
             Chart {
                 ForEach(stats.indices, id: \.self) { index in
                     BarMark(x: .value("Year", "\(stats[index].0)"),
-                            y: .value(title, stats[index].1)
+                            y: .value("Transfer", stats[index].1)
                     )
                     .cornerRadius(20)
                     .foregroundStyle(by: .value("Year", "\(stats[index].0)"))
@@ -103,7 +111,6 @@ struct YearlyView: View {
         }
         .background(Color.gray.opacity(0.05))
         .cornerRadius(20)
-        .padding()
     }
 }
 

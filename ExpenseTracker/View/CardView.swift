@@ -29,21 +29,22 @@ struct CardView: View {
                         .background(.red.gradient, in: .capsule)
                 }
             }
+            
             .lineLimit(1)
         
             Spacer(minLength: 8)
             
             Text(expense.currencyString)
                 .font(.title3.bold())
-
+            
             Text(expense.type == "income" ? "Income" : "Expense")
-                    .font(.caption)
-                    .foregroundColor(expense.type == "income" ? .green : .red)
-                    .padding(6)
-                    .background(
-                        RoundedRectangle(cornerRadius: 6)
-                            .foregroundColor(expense.type == "income" ? Color.green.opacity(0.1) : Color.red.opacity(0.1))
-                    )
+                .font(.caption)
+                .foregroundColor(expense.type == "income" ? .green : .red)
+                .padding(6)
+                .background(
+                RoundedRectangle(cornerRadius: 6)
+                    .foregroundColor(expense.type == "income" ? Color.green.opacity(0.1) : Color.red.opacity(0.1))
+                )
         }
     }
 }

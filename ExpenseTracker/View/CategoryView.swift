@@ -57,6 +57,8 @@ struct CategoryView: View {
                     }
             }
         }
+        .background(Color.gray.opacity(0.05))
+        .scrollContentBackground(.hidden)
     }
     
     private func disclosureGroup(for category: Category) -> some View {

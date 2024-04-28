@@ -3,4 +3,38 @@
    uuid = "E330FEAF-97C6-4534-BBFA-557BD78A1A05"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D4A5F7EB-3080-4DE2-9DD1-6311BC314503"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../../../var/folders/8r/6frwhqk97_52x959c79pcwgw0000gn/T/swift-generated-sources/@__swiftmacro_14ExpenseTracker33_9CF902AF3DD35C20BA7B6C27DA3C50BDLl7PreviewfMf0_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "$s14ExpenseTracker33_9CF902AF3DD35C20BA7B6C27DA3C50BDLl7PreviewfMf0_15PreviewRegistryfMu_"
+            landmarkType = "37">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9FBC9BEF-20DD-4CDC-9EE4-E41C735D95F2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../../../var/folders/8r/6frwhqk97_52x959c79pcwgw0000gn/T/swift-generated-sources/@__swiftmacro_14ExpenseTracker0A0C6amount18_PersistedPropertyfMa_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

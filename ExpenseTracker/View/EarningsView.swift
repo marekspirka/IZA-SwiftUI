@@ -68,7 +68,10 @@ struct EarningsView: View {
                 }
             }
         }
+        .background(Color.gray.opacity(0.05))
+        .scrollContentBackground(.hidden)
     }
+    
     func deleteExpense(_ expense: Expense) {
         context.delete(expense)
         viewModel.updateAfterDeleted(expense)

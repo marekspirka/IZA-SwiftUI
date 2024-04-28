@@ -57,6 +57,7 @@ class Expense {
     
 }
 
+
 extension Array where Element == Expense {
     func monthlyAndYearlyStats() -> (monthlyIncome: [(month: String, income: Double)], monthlyExpenses: [(month: String, expenses: Double)], yearlyIncome: [(year: Int, income: Double)], yearlyExpenses: [(year: Int, expenses: Double)]) {
         var monthlyIncomeStats = [(month: String, income: Double)]()

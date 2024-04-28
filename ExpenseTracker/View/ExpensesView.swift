@@ -15,6 +15,7 @@ struct ExpensesView: View {
     // Create an instance of ExpenseViewModel
     @StateObject private var viewModel = ExpenseViewModel()
     @Environment(\.modelContext) private var context
+    
 
     var body: some View {
         NavigationStack {
@@ -70,6 +71,8 @@ struct ExpensesView: View {
                 }
             }
         }
+        .background(Color.gray.opacity(0.05))
+        .scrollContentBackground(.hidden)
     }
     
     func deleteExpense(_ expense: Expense) {

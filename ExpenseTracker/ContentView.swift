@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View{
         TabView(selection: $currentTab){
             
-            AccountView()
+            AccountView(currentTable: $currentTab)
                 .tag("My account")
                 .tabItem{
                     Image(systemName: "creditcard.circle")
@@ -27,10 +27,10 @@ struct ContentView: View {
                     Text("Expenses")
                 }
             EarningsView(currentTable: $currentTab)
-                .tag("Earnings")
+                .tag("Incomes")
                 .tabItem{
                     Image(systemName: "arrow.up.forward.circle.fill")
-                    Text("Earnings")
+                    Text("Incomes")
                 }
             CategoryView()
                 .tag("Categories")

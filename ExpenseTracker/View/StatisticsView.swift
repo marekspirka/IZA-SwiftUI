@@ -10,17 +10,16 @@ import SwiftData
 import Charts
 
 struct StatisticsView: View {
-    
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
-    
+
     private var monthlyIncomeStats: [(month: String, income: Double)] {
-            return allExpenses.monthlyAndYearlyStats().monthlyIncome
-        }
-        
+        return allExpenses.monthlyAndYearlyStats().monthlyIncome
+    }
+    
     private var monthlyExpenseStats: [(month: String, expenses: Double)] {
-            return allExpenses.monthlyAndYearlyStats().monthlyExpenses
-        }
+        return allExpenses.monthlyAndYearlyStats().monthlyExpenses
+    }
     
     private var yearlyIncomeStats: [(year: Int, income: Double)] {
         return allExpenses.monthlyAndYearlyStats().yearlyIncome
@@ -30,101 +29,79 @@ struct StatisticsView: View {
         return allExpenses.monthlyAndYearlyStats().yearlyExpenses
     }
     
+    var body: some View {
+        NavigationStack {
+            VStack {
+                ScrollView {
+                    MonthlyView(title: "Monthly Income", stats: monthlyIncomeStats, color: .green)
+                    MonthlyView(title: "Monthly Expense", stats: monthlyExpenseStats, color: .red)
+                    YearlyView(title: "Yearly Income", stats: yearlyIncomeStats, color: .green)
+                    YearlyView(title: "Yearly Expense", stats: yearlyExpenseStats, color: .red)
+                }
+                .padding()
+            }
+            .navigationTitle("Statistics")
+        }
+    }
+}
 
-        var body: some View {
-            ScrollView{
-                MonthlyIncomeView
-                MonthlyExpenseView
-                YearlyIncomeView
-                YearlyExpenseView
-            }
-            .padding()
-        }
+struct MonthlyView: View {
+    let title: String
+    let stats: [(String, Double)]
+    let color: Color
     
-    private var MonthlyIncomeView: some View{
+    var body: some View {
         VStack {
-            Text("Monthly Income")
-                .font(.title)
+            Text(title)
+                .font(.title2)
+                .bold()
+                .padding()
+                .foregroundColor(color)
             Chart {
-                ForEach(monthlyIncomeStats.indices, id: \.self) { index in
-                    BarMark(x: .value("Month", monthlyIncomeStats[index].month),
-                            y: .value("Income", monthlyIncomeStats[index].income)
+                ForEach(stats.indices, id: \.self) { index in
+                    BarMark(x: .value("Month", stats[index].0),
+                            y: .value(title, stats[index].1)
                     )
                     .cornerRadius(20)
-                    .foregroundStyle(by: .value("Month", monthlyIncomeStats[index].month))
+                    .foregroundStyle(by: .value("Month", stats[index].0))
                 }
             }
             .aspectRatio(2, contentMode: .fit)
             .padding(20)
             .chartLegend(.hidden)
         }
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.05))
         .cornerRadius(20)
         .padding()
     }
+}
+
+struct YearlyView: View {
+    let title: String
+    let stats: [(Int, Double)]
+    let color: Color
     
-    private var MonthlyExpenseView: some View{
+    var body: some View {
         VStack {
-            Text("Monthly Expense")
-                .font(.title)
+            Text(title)
+                .font(.title2)
+                .bold()
+                .padding()
+                .foregroundColor(color)
             Chart {
-                ForEach(monthlyExpenseStats.indices, id: \.self) { index in
-                    BarMark(x: .value("Month", monthlyExpenseStats[index].month),
-                            y: .value("Expense", monthlyExpenseStats[index].expenses)
+                ForEach(stats.indices, id: \.self) { index in
+                    BarMark(x: .value("Year", "\(stats[index].0)"),
+                            y: .value(title, stats[index].1)
                     )
                     .cornerRadius(20)
-                    .foregroundStyle(by: .value("Month", monthlyExpenseStats[index].month))
+                    .foregroundStyle(by: .value("Year", "\(stats[index].0)"))
                 }
             }
             .aspectRatio(2, contentMode: .fit)
             .padding(20)
             .chartLegend(.hidden)
         }
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(20)
-        .padding()
-    }
-    
-    private var YearlyIncomeView: some View{
-        VStack {
-            Text("Yearly Income")
-                .font(.title)
-            Chart {
-                ForEach(yearlyIncomeStats.indices, id: \.self) { index in
-                    BarMark(x: .value("Year", yearlyIncomeStats[index].year),
-                            y: .value("Income", yearlyIncomeStats[index].income)
-                    )
-                    .cornerRadius(20)
-                    .foregroundStyle(by: .value("Year", yearlyIncomeStats[index].year))
-                }
-            }
-            .aspectRatio(2, contentMode: .fit)
-            .padding(20)
-            .chartLegend(.hidden)
-        }
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(20)
-        .padding()
-    }
-    
-    private var YearlyExpenseView: some View{
-        VStack {
-            Text("Yearly Expense")
-                .font(.title)
-            Chart {
-                ForEach(yearlyExpenseStats.indices, id: \.self) { index in
-                    BarMark(x: .value("Year", yearlyExpenseStats[index].year),
-                            y: .value("Expense", yearlyExpenseStats[index].expenses)
-                    )
-                    .cornerRadius(20)
-                    .foregroundStyle(by: .value("Year", yearlyExpenseStats[index].year))
-                }
-            }
-            .aspectRatio(2, contentMode: .fit)
-            .padding(20)
-            .chartLegend(.hidden)
-        }
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.05))
         .cornerRadius(20)
         .padding()
     }

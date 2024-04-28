@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    
     @State private var currentTab: String = "My account"
     
     var body: some View{
@@ -34,7 +34,7 @@ struct ContentView: View {
                 }
             CategoryView()
                 .tag("Categories")
-                .tabItem{
+                .tabItem {
                     Image(systemName: "text.justify")
                     Text("Categories")
                 }

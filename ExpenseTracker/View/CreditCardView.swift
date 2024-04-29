@@ -26,12 +26,10 @@ struct CreditCardView: View {
                 )
                 .frame(width: 350, height: 230)
                 .overlay(cardContent)
-               
                 .shadow(color: Color.black.opacity(0.3), radius: 3, x: 0, y: 2)
             
             Spacer()
         }
-        .navigationTitle("Your Account")
     }
 
     private var cardContent: some View {

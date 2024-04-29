@@ -31,7 +31,6 @@ struct AccountView: View {
         NavigationStack {
                 List{
                     CreditCardView(totalEarnings: totalEarnings, totalExpenses: totalExpenses)
-                        .padding(.top, 20)
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
                     Text("Last 3 days transfers:")

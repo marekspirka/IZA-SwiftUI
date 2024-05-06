@@ -35,16 +35,18 @@ struct AddTransferView: View {
             List {
                 Section("Title") {
                     TextField("Name of Expense", text: $viewModel.title)
+                        .disableAutocorrection(true)
                 }
                                
                 Section("Description") {
                     TextField("Write here description", text: $viewModel.subTitle)
+                        .disableAutocorrection(true)
                 }
                                
                 Section("Price") {
                     HStack(spacing: 4) {
                         TextField("0.0", value: $viewModel.amount, formatter: NumberFormatter())
-                            .keyboardType(.decimalPad) // Use decimalPad for entering amount
+                            .keyboardType(.decimalPad)
                         Text("€").fontWeight(.semibold)
                     }
                 }

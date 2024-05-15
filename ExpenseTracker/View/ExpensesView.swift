@@ -12,7 +12,6 @@ struct ExpensesView: View {
     @Binding var currentTable: String
     @Query(sort: [
         SortDescriptor(\Expense.date, order: .reverse)], animation: .snappy) private var allExpenses: [Expense]
-    // Create an instance of ExpenseViewModel
     @StateObject private var viewModel = TransferViewModel()
     @Environment(\.modelContext) private var context
     
@@ -71,7 +70,7 @@ struct ExpensesView: View {
                 }
             }
         }
-        .background(Color.gray.opacity(0.05))
+        .background(Color.gray.opacity(0.1))
         .scrollContentBackground(.hidden)
     }
     

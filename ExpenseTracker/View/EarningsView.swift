@@ -68,7 +68,7 @@ struct EarningsView: View {
                 }
             }
         }
-        .background(Color.gray.opacity(0.05))
+        .background(Color.gray.opacity(0.1))
         .scrollContentBackground(.hidden)
     }
     

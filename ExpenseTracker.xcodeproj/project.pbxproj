@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1D1271C12BDEC22300082B63 /* AddTransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1271C02BDEC22300082B63 /* AddTransferViewModel.swift */; };
 		1D1271C52BDEC46400082B63 /* CreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1271C42BDEC46400082B63 /* CreditCardView.swift */; };
-		1D1271C72BDEC96600082B63 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1271C62BDEC96600082B63 /* CategoryViewModel.swift */; };
 		1D503AFD2BD57DC500BC7DF8 /* TransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */; };
 		1D765CF92BDE4D060009B85B /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D765CF82BDE4D060009B85B /* StatisticsView.swift */; };
 		1DD398012BD4416700E93680 /* EarningsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD398002BD4416700E93680 /* EarningsView.swift */; };
@@ -32,7 +31,6 @@
 /* Begin PBXFileReference section */
 		1D1271C02BDEC22300082B63 /* AddTransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransferViewModel.swift; sourceTree = "<group>"; };
 		1D1271C42BDEC46400082B63 /* CreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardView.swift; sourceTree = "<group>"; };
-		1D1271C62BDEC96600082B63 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewModel.swift; sourceTree = "<group>"; };
 		1D60E9BE2BF493C100586812 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1D60E9C02BF493C100586812 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -72,7 +70,6 @@
 			children = (
 				1D503AFC2BD57DC500BC7DF8 /* TransferViewModel.swift */,
 				1D1271C02BDEC22300082B63 /* AddTransferViewModel.swift */,
-				1D1271C62BDEC96600082B63 /* CategoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -242,7 +239,6 @@
 				1D503AFD2BD57DC500BC7DF8 /* TransferViewModel.swift in Sources */,
 				1DE87E4F2BD3AE7B00EBE6B9 /* Category.swift in Sources */,
 				1DD398012BD4416700E93680 /* EarningsView.swift in Sources */,
-				1D1271C72BDEC96600082B63 /* CategoryViewModel.swift in Sources */,
 				1D1271C12BDEC22300082B63 /* AddTransferViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

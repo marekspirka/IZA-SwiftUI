@@ -50,13 +50,16 @@ struct AddTransferView: View {
                         Text("€").fontWeight(.semibold)
                     }
                 }
-                               
                 Section("Type") {
                     Picker("Type", selection: $viewModel.type) {
-                        Text("Expense").tag("expense")
-                        Text("Income").tag("income")
+                        Text("Expense")
+                            .tag("expense")
+                            .padding(5)
+                        Text("Income")
+                            .tag("income")
+                            .padding(5)
                     }
-                        .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(SegmentedPickerStyle())
                 }
                                
                 if !allCategories.isEmpty {
